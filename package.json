@@ -12,6 +12,10 @@
 		"Snippets",
 		"Linters"
 	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/platelk/vscode-dart.git"
+	},
 	"icon": "img/dart-logo-wordmark.png",
 	"galleryBanner": {
 		"color": "#006698",
