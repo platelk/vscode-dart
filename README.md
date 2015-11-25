@@ -1,13 +1,43 @@
-# README
-## This is the README for your extension "dart" 
-You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
+# Dart support for VSCode
 
-* Split the editor (`Cmd+\` on OSX or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on OSX or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (OSX) to see a list of Markdown snippets
+This extension aims to provide support and IDE-like features for Dart language to VS Code
 
-### For more information
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
+## Features
+
+### Done
+
+* Syntax coloration for Dart file
+* Simple Snippet for Dart file
+
+### In progress
+
+* Syntax coloration for pubspec file
+* Simple Snippet for pubspecfile
+
+### In the future
+
+* `pub` command integration
+* `dartdoc` integration
+* `dartfmt` integration
+* Connect 
+
+
+## Using
+
+**For version 0.0.1** :
+The first version don't the Dart tool for know, but it will soon
+
+## Special Thanks
+
+For this extension, I use as example and resources : 
+- the Go language extension done by Microsoft [here](https://github.com/Microsoft/vscode-go)
+- the Dart Atom extension available [here](https://github.com/dart-atom/dartlang/)
+
+## Contact me !
+
+Don't hesitate to email me or on G+
+
+- G+ : [+Kevin PLATEL](https://plus.google.com/+KévinPlatel)
+- Mail : [Kevin PLATEL](platel.kevin@gmail.com) 
 
 ** Enjoy!**
