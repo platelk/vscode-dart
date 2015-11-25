@@ -3,16 +3,16 @@
 	"displayName": "Dart",
 	"description": "Dart support for VSCode",
 	"version": "0.0.1",
-	"publisher": "Vink",
+	"publisher": "kevinplatel",
 	"author": {
 		"name": "PLATEL Kévin"
 	},
 	"categories": [
 		"Languages",
 		"Snippets",
-		"Linters",
-		"Debuggers"
+		"Linters"
 	],
+	"icon": "img/dart-logo-wordmark.png",
 	"galleryBanner": {
 		"color": "#006698",
 		"theme": "light"
@@ -21,7 +21,6 @@
 		"vscode": "^0.10.1"
 	},
 	"activationEvents": [
-		"onCommand:extension.sayHello",
 		"onLanguage:dart"
 	],
 	"main": "./out/src/extension",
