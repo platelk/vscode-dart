@@ -1,5 +1,5 @@
-'use strict';
+"use strict";
 
-import vscode = require('vscode');
+import vscode = require("vscode");
 
-export const DART_MODE: vscode.DocumentFilter = { language: 'dart', scheme: 'file' }
+export const DART_MODE: vscode.DocumentFilter = { language: "dart", scheme: "file" }

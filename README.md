@@ -11,21 +11,21 @@ This extension aims to provide support and IDE-like features for Dart language t
 
 ### In progress
 
-* Syntax coloration for pubspec file
-* Simple Snippet for pubspecfile
+* `pub` command integration
+	- `pub get` 	done
+	- `pub build` done
 
 ### In the future
 
-* `pub` command integration
 * `dartdoc` integration
 * `dartfmt` integration
-* Connect 
-
+* Connect to the Dart Analyzer Service to provide better experience
+* `grinder` integration
 
 ## Using
 
 **For version 0.0.1** :
-The first version don't the Dart tool for know, but it will soon
+The first version don't use the Dart tool for know, but it will soon
 
 ## Special Thanks
 

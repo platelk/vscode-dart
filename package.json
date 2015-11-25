@@ -2,7 +2,7 @@
 	"name": "dart",
 	"displayName": "Dart",
 	"description": "Dart support for VSCode",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"publisher": "kevinplatel",
 	"author": {
 		"name": "PLATEL Kévin"
@@ -17,7 +17,7 @@
 		"type": "git",
 		"url": "https://github.com/platelk/vscode-dart.git"
 	},
-	"icon": "img/dart-logo-wordmark.png",
+	"icon": "img/dart-logo.png",
 	"galleryBanner": {
 		"color": "#006698",
 		"theme": "light"
@@ -26,14 +26,25 @@
 		"vscode": "^0.10.1"
 	},
 	"activationEvents": [
-		"onLanguage:dart"
+		"onLanguage:dart",
+		"workspaceContains:pubspec.yaml"
 	],
 	"main": "./out/src/extension",
 	"contributes": {
-		"commands": [{
-			"command": "extension.sayHello",
-			"title": "Hello World"
-		}],
+		"commands": [
+			{
+				"command": "dart.pubGet",
+				"title": "Pub get"
+			},
+			{
+				"command": "dart.pubBuild",
+				"title": "Pub build"
+			},
+			{
+				"command": "dart.pubBuildDebug",
+				"title": "Pub build debug"
+			}
+		],
 		"languages": [
 			{
 				"id": "dart",
@@ -53,7 +64,28 @@
 				"language": "dart",
 				"path": "./snippets/dart.json"
 			}
-		]
+		],
+		"configuration": {
+			"type": "object",
+			"title": "Dart configuration",
+			"properties": {
+				"dart.pubPath": {
+					"type": "string",
+					"description": "path to the pub command",
+					"default": "pub"
+				},
+				"dart.dartPath": {
+					"type": "string",
+					"description": "path to the dart command",
+					"default": "dart"
+				},
+				"dart.dartiumPath": {
+					"type": "string",
+					"description": "path the dartium browser, if the value is empty, it will look at $DART_SDK",
+					"default": ""
+				}
+			}
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "node ./node_modules/vscode/bin/compile",
