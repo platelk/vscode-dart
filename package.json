@@ -10,7 +10,8 @@
 	"categories": [
 		"Languages",
 		"Snippets",
-		"Linters"
+		"Linters",
+		"Dart"
 	],
 	"repository": {
 		"type": "git",
