@@ -1,0 +1,58 @@
+{
+	".source.dart": {
+		"import package": {
+			"prefix": "im",
+			"body": "import '${1:package}';"
+		},
+		"class": {
+			"prefix": "class",
+			"body": "class ${1:className} {\n  ${1:className}($2);\n}"
+		},
+		"class extends": {
+			"prefix": "classex",
+			"body": "class ${1:className} extends ${2:upperClassName} {\n  ${1:className}($3) : super($4);\n}"
+		},
+		"abstract class": {
+			"prefix": "aclass",
+			"body": "abstract class ${1:className} {\n  ${1:className}();\n}"
+		},
+		"abstract class extends": {
+			"prefix": "aclassex",
+			"body": "abstract class ${1:className} extends ${2:upperClassName} {\n  ${1:className}($3) : super($4);\n}"
+		},
+		"function": {
+			"prefix": "fun",
+			"body": "${1:returnType} ${2:functionName}($3) {\n\t$4\n}"
+		},
+		"main function": {
+			"prefix": "main",
+			"body": "void main() {\n\t$0\n}"
+		},
+		"for loop": {
+			"prefix": "forl",
+        "body": [
+            "for (var ${1:index} = 0; ${1:index} < ${2:array}.length; ${1:index}++) {",
+            "\tvar ${3:element} = ${2:array}[${1:index}];",
+            "\t$4",
+            "}"
+        ],
+        "description": "For Loop"
+		},
+		"for in loop": {
+			"prefix": "fori",
+			"body": [
+				    "for (var ${element} : ${list}) {",
+						"\t$0;",
+            "}"
+			]
+		},
+		"while loop": {
+			"prefix": "whilel",
+			"body": [
+				"while ($1) {",
+				"\t$2;",
+				"}"
+			]
+		}
+	}
+}

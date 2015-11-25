@@ -1,0 +1,62 @@
+{
+	"name": "dart",
+	"displayName": "Dart",
+	"description": "Dart support for VSCode",
+	"version": "0.0.1",
+	"publisher": "Vink",
+	"author": {
+		"name": "PLATEL Kévin"
+	},
+	"categories": [
+		"Languages",
+		"Snippets",
+		"Linters",
+		"Debuggers"
+	],
+	"galleryBanner": {
+		"color": "#006698",
+		"theme": "light"
+	},
+	"engines": {
+		"vscode": "^0.10.1"
+	},
+	"activationEvents": [
+		"onCommand:extension.sayHello",
+		"onLanguage:dart"
+	],
+	"main": "./out/src/extension",
+	"contributes": {
+		"commands": [{
+			"command": "extension.sayHello",
+			"title": "Hello World"
+		}],
+		"languages": [
+			{
+				"id": "dart",
+				"aliases": ["Dart"],
+				"extensions": [".dart"]
+			}
+		],
+		"grammars": [
+			{
+				"language": "dart",
+				"path": "./syntaxes/dart.json",
+				"scopeName": "source.dart"
+			}
+		],
+		"snippets": [
+			{
+				"language": "dart",
+				"path": "./snippets/dart.json"
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "node ./node_modules/vscode/bin/compile",
+		"compile": "node ./node_modules/vscode/bin/compile -watch -p ./"
+	},
+	"devDependencies": {
+		"typescript": "^1.6.2",
+		"vscode": "0.10.x"
+	}
+}
