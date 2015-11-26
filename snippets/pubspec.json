@@ -1,0 +1,16 @@
+{
+	".source.yaml" : {
+		"Basic pubspec.yaml" : {
+			"prefix": "pubspec",
+			"body": [
+				"name: ${1:projectName}",
+				"version: ${2:projectVersion}",
+				"description: Description of ${1:projectName}",
+				"dependencies:",
+				"\t${3:dependenciesName}: \"^${4:any}\"",
+				"dev_dependencies:",
+				"\ttest: any"
+			]
+		}
+	}
+}

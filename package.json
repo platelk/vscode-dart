@@ -2,7 +2,7 @@
 	"name": "dart",
 	"displayName": "Dart",
 	"description": "Dart support for VSCode",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"publisher": "kevinplatel",
 	"author": {
 		"name": "PLATEL Kévin"
@@ -10,8 +10,11 @@
 	"categories": [
 		"Languages",
 		"Snippets",
-		"Linters",
-		"Dart"
+		"Linters"
+	],
+	"keywords": [
+		"Dart",
+		"Web"
 	],
 	"repository": {
 		"type": "git",
@@ -63,6 +66,10 @@
 			{
 				"language": "dart",
 				"path": "./snippets/dart.json"
+			},
+			{
+				"language": "yaml",
+				"path": "./snippets/pubspec.json"
 			}
 		],
 		"configuration": {
