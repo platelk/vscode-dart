@@ -1,6 +1,8 @@
 #0.0.3
 - Adding pubspec snippet
 - Adding `pub run` for the current document
+- Open result of `pub run` in an output window
+- Minor correction
 
 #0.0.2
 - Adding `pub get` command
