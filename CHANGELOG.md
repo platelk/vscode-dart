@@ -2,6 +2,7 @@
 - Adding pubspec snippet
 - Adding `pub run` for the current document
 - Open result of `pub run` in an output window
+- Adding file format through `dartfmt`
 - Minor correction
 
 #0.0.2

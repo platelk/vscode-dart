@@ -9,6 +9,7 @@ This extension aims to provide support and IDE-like features for Dart language t
 * Syntax coloration for Dart file
 * Simple Snippet for Dart file
 * Simple `pub` command integration
+* `dartfmt` integration
 
 ### In progress
 
@@ -21,7 +22,6 @@ This extension aims to provide support and IDE-like features for Dart language t
 ### In the future
 
 * `dartdoc` integration
-* `dartfmt` integration
 * Connect to the Dart Analyzer Service to provide better experience
 * `grinder` integration
 
