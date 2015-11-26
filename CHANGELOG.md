@@ -1,5 +1,6 @@
 #0.0.4
 - Changing logo
+- Changing theme
 - Adding command for formatting
 - Minor correction
 
