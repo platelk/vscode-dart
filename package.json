@@ -23,7 +23,7 @@
 	"icon": "img/dart-logo.png",
 	"galleryBanner": {
 		"color": "#006698",
-		"theme": "light"
+		"theme": "dark"
 	},
 	"engines": {
 		"vscode": "^0.10.1"
