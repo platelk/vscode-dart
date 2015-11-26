@@ -17,15 +17,14 @@ export class Pub {
 			"pub run " + filePath,
 			{"cwd": vscode.workspace.rootPath},
 			(err, stdout, stderr) => {
-				console.log(err);
-				if (err != null) {
-					let error = stderr.toString();
-					console.log(error);
-					vscode.window.showErrorMessage("Pub run : " + error);
-				} else {
-					console.log(stdout.toString());
-					vscode.window.showInformationMessage("Pub run finish.");
-				}
+				let outputWindow = vscode.window.createOutputChannel("pub run");
+
+				outputWindow.show();
+				outputWindow.clear();
+
+				console.log(stdout.toString());
+				outputWindow.append(stderr.toString());
+				outputWindow.append(stdout.toString());
 			}
 		);
 	}

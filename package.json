@@ -56,14 +56,12 @@
 			{
 				"command": "dart.pubRun",
 				"key": "ctrl+shift+R",
-				"mac": "cmd+shift+R",
-				"when": "editorLangId == 'dart' || editorLangId == 'yaml'"
+				"mac": "cmd+shift+R"
 			},
 			{
 				"command": "dart.pubBuild",
 				"key": "ctrl+shift+B",
-				"mac": "cmd.shift+B",
-				"when": "editorLangId == 'dart' || editorLangId == 'yaml'"
+				"mac": "cmd.shift+B"
 			}
 		],
 		"languages": [
