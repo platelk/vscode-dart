@@ -52,6 +52,11 @@
 				"title": "Pub run current open document"
 			}
 		],
+		"keybindings": {
+			"command": "dart.pubRun",
+			"key": "ctrl+shift+R",
+			"mac": "cmd+shift+R"
+		},
 		"languages": [
 			{
 				"id": "dart",

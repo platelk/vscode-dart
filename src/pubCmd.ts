@@ -11,7 +11,7 @@ export class Pub {
 		console.log(vscode.workspace.rootPath);
 		console.log("PubPath: " + this.pubCmd);
 	}
-	
+
 	private _runRun(filePath : string) {
 		cp.exec(
 			"pub run " + filePath,
@@ -23,14 +23,15 @@ export class Pub {
 					console.log(error);
 					vscode.window.showErrorMessage("Pub run : " + error);
 				} else {
+					console.log(stdout.toString());
 					vscode.window.showInformationMessage("Pub run finish.");
 				}
 			}
 		);
 	}
-	
+
 	runRun() {
-		this._runRun(vscode.window.activeTextEditor.document.fileName);
+		this._runRun(vscode.workspace.asRelativePath(vscode.window.activeTextEditor.document.fileName).substr(1));
 	}
 
 	runGet() {
