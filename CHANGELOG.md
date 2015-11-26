@@ -1,3 +1,8 @@
+#0.0.4
+- Changing logo
+- Adding command for formatting
+- Minor correction
+
 #0.0.3
 - Adding pubspec snippet
 - Adding `pub run` for the current document
