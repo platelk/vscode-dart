@@ -53,7 +53,7 @@
 			},
 			{
 				"command": "dart.fmt",
-				"title": "Format dart file"
+				"title": "Dart format"
 			}
 		],
 		"keybindings": [
@@ -61,11 +61,6 @@
 				"command": "dart.pubRun",
 				"key": "ctrl+shift+R",
 				"mac": "cmd+shift+R"
-			},
-			{
-				"command": "dart.pubBuild",
-				"key": "ctrl+shift+B",
-				"mac": "cmd.shift+B"
 			},
 			{
 				"command": "dart.pubBuild",

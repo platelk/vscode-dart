@@ -51,7 +51,18 @@ export class DartFormat implements vscode.DocumentFormattingEditProvider {
 			this.dartFmtCmd + " " + filePath,
 			{"cwd": vscode.workspace.rootPath},
 			(err, stdout, stderr) => {
-				console.log("Fomart on " + filePath);
+				console.log(err);
+				console.log(stdout.toString());
+				console.log(stderr.toString());
+				vscode.window.activeTextEditor.edit((editBuild) => {
+					let document = vscode.window.activeTextEditor.document;
+					var text = stdout.toString();
+					var lastLine = document.lineCount;
+					var lastLineLastCol = document.lineAt(lastLine - 1).range.end.character;
+					var range = new vscode.Range(0, 0, lastLine - 1, lastLineLastCol);
+					editBuild.replace(range, stdout.toString());
+				});
+				console.log("Format on " + filePath);
 			}
 		);
 	}
