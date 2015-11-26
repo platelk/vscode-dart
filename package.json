@@ -52,11 +52,20 @@
 				"title": "Pub run current open document"
 			}
 		],
-		"keybindings": {
-			"command": "dart.pubRun",
-			"key": "ctrl+shift+R",
-			"mac": "cmd+shift+R"
-		},
+		"keybindings": [
+			{
+				"command": "dart.pubRun",
+				"key": "ctrl+shift+R",
+				"mac": "cmd+shift+R",
+				"when": "editorLangId == 'dart' || editorLangId == 'yaml'"
+			},
+			{
+				"command": "dart.pubBuild",
+				"key": "ctrl+shift+B",
+				"mac": "cmd.shift+B",
+				"when": "editorLangId == 'dart' || editorLangId == 'yaml'"
+			}
+		],
 		"languages": [
 			{
 				"id": "dart",
