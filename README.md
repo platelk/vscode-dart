@@ -14,6 +14,7 @@ This extension aims to provide support and IDE-like features for Dart language t
 * `pub` command integration
 	- `pub get` 	done
 	- `pub build` done
+	- `pub run` done
 
 ### In the future
 

@@ -18,7 +18,9 @@ export class Pub {
 			{"cwd": vscode.workspace.rootPath},
 			(err, stdout, stderr) => {
 				let outputWindow = vscode.window.createOutputChannel("pub run");
-
+				console.log(vscode.window.visibleTextEditors);
+				outputWindow.hide();
+				//vscode.commands.executeCommand("workbench.action.splitEditor");
 				outputWindow.show();
 				outputWindow.clear();
 
@@ -55,19 +57,25 @@ export class Pub {
 	}
 
 	runBuild(mode: string) {
-		vscode.window.showInformationMessage("Pub Build finish.");
 		cp.exec(
-			this.pubCmd + " build" + " --format json" + " --mode " + mode,
+			this.pubCmd + " build" + " --mode " + mode,
 			{"cwd": vscode.workspace.rootPath},
 			(err, stdout: Buffer, stderr: Buffer) => {
 			console.log(stdout.toString());
 			console.log(err);
+			let outputWindow = vscode.window.createOutputChannel("pub build");
+
+			outputWindow.clear();
+
 			if (err != null) {
 				let error = stderr.toString();
 				if (error.includes("file named \"pubspec.yaml\"")) {
 					vscode.window.showErrorMessage("Could not find a file named 'pubspec.yaml'");
 				} else {
 					vscode.window.showErrorMessage("Error during the build process in mode " + mode + "\n" + error);
+					outputWindow.append(stdout.toString());
+					outputWindow.append(error);
+					outputWindow.show();
 				}
 			} else {
 				vscode.window.showInformationMessage("Pub build in " + mode + " mode finish.");
