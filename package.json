@@ -46,6 +46,10 @@
 			{
 				"command": "dart.pubBuildDebug",
 				"title": "Pub build debug"
+			},
+			{
+				"command": "dart.pubRun",
+				"title": "Pub run current open document"
 			}
 		],
 		"languages": [

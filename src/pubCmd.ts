@@ -11,6 +11,27 @@ export class Pub {
 		console.log(vscode.workspace.rootPath);
 		console.log("PubPath: " + this.pubCmd);
 	}
+	
+	private _runRun(filePath : string) {
+		cp.exec(
+			"pub run " + filePath,
+			{"cwd": vscode.workspace.rootPath},
+			(err, stdout, stderr) => {
+				console.log(err);
+				if (err != null) {
+					let error = stderr.toString();
+					console.log(error);
+					vscode.window.showErrorMessage("Pub run : " + error);
+				} else {
+					vscode.window.showInformationMessage("Pub run finish.");
+				}
+			}
+		);
+	}
+	
+	runRun() {
+		this._runRun(vscode.window.activeTextEditor.document.fileName);
+	}
 
 	runGet() {
 		vscode.window.showInformationMessage("Pub get starting...");
@@ -18,7 +39,6 @@ export class Pub {
 			this.pubCmd + " get",
 			{"cwd": vscode.workspace.rootPath},
 			(err, stdout: Buffer, stderr: Buffer) => {
-			console.log(stdout.toString());
 			console.log(err);
 			if (err != null) {
 				let error = stderr.toString();
@@ -57,8 +77,9 @@ export class Pub {
 
 	setPubCmd(context: vscode.ExtensionContext) {
 		console.log("Set pub cmd");
-		context.subscriptions.push(vscode.commands.registerCommand("dart.pubGet", () => this.runGet()));
-		context.subscriptions.push(vscode.commands.registerCommand("dart.pubBuild", () => this.runBuild("release")));
+		context.subscriptions.push(vscode.commands.registerCommand("dart.pubGet", 			 () => this.runGet()));
+		context.subscriptions.push(vscode.commands.registerCommand("dart.pubBuild", 		 () => this.runBuild("release")));
 		context.subscriptions.push(vscode.commands.registerCommand("dart.pubBuildDebug", () => this.runBuild("debug")));
+		context.subscriptions.push(vscode.commands.registerCommand("dart.pubRun", 			 () => this.runRun()));
 	}
 }
