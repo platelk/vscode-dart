@@ -2,7 +2,7 @@
 	"name": "dart",
 	"displayName": "Dart",
 	"description": "Dart support for VSCode",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"publisher": "kevinplatel",
 	"author": {
 		"name": "PLATEL Kévin"
