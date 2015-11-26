@@ -8,6 +8,7 @@ This extension aims to provide support and IDE-like features for Dart language t
 
 * Syntax coloration for Dart file
 * Simple Snippet for Dart file
+* Simple `pub` command integration
 
 ### In progress
 
@@ -15,6 +16,7 @@ This extension aims to provide support and IDE-like features for Dart language t
 	- `pub get` 	done
 	- `pub build` done
 	- `pub run` done
+* Show some command result in a dedicated ouput window
 
 ### In the future
 
@@ -27,6 +29,12 @@ This extension aims to provide support and IDE-like features for Dart language t
 
 **For version 0.0.1** :
 The first version don't use the Dart tool for know, but it will soon
+
+This extension use the following command:
+- `pub`
+- `dart`
+- `dartfmt`
+
 
 ## Special Thanks
 

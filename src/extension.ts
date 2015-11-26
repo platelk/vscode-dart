@@ -1,8 +1,9 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
-import * as vscode from 'vscode'; 
-import { DART_MODE } from './dartMode';
+import * as vscode from "vscode";
+import { DART_MODE } from "./dartMode";
 import { Pub } from "./pubCmd";
+import { DartFormat } from "./dartFormat";
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -12,14 +13,16 @@ export function activate(context: vscode.ExtensionContext) : void {
 	// This line of code will only be executed once when your extension is activated
 	console.log("Congratulations, your extension 'dart' is now active!"); 
 
-	setCommand(context);
+	init(context);
 	setLanguageConfiguration();
 }
 
-function setCommand(context: vscode.ExtensionContext) : void {
+function init(context: vscode.ExtensionContext) : void {
 	let pub = new Pub();
+	let fmt = new DartFormat();
 
 	pub.setPubCmd(context);
+	fmt.setDartFmt(context);
 }
 
 function setLanguageConfiguration() {

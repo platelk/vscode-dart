@@ -50,6 +50,10 @@
 			{
 				"command": "dart.pubRun",
 				"title": "Pub run current open document"
+			},
+			{
+				"command": "dart.fmt",
+				"title": "Format dart file"
 			}
 		],
 		"keybindings": [
@@ -57,6 +61,11 @@
 				"command": "dart.pubRun",
 				"key": "ctrl+shift+R",
 				"mac": "cmd+shift+R"
+			},
+			{
+				"command": "dart.pubBuild",
+				"key": "ctrl+shift+B",
+				"mac": "cmd.shift+B"
 			},
 			{
 				"command": "dart.pubBuild",
@@ -106,6 +115,11 @@
 					"type": "string",
 					"description": "path the dartium browser, if the value is empty, it will look at $DART_SDK",
 					"default": ""
+				},
+				"dart.dartFmtPath": {
+					"type": "string",
+					"description": "path of the dartfmt tool",
+					"default": "dartfmt"
 				}
 			}
 		}
