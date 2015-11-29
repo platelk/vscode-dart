@@ -2,7 +2,7 @@
 	"name": "dart",
 	"displayName": "Dart",
 	"description": "Dart support for VSCode",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"publisher": "kevinplatel",
 	"author": {
 		"name": "PLATEL Kévin"
@@ -54,6 +54,10 @@
 			{
 				"command": "dart.fmt",
 				"title": "Dart format"
+			},
+			{
+				"command": "dart.lint",
+				"title": "Dart Linter"
 			}
 		],
 		"keybindings": [
@@ -115,6 +119,21 @@
 					"type": "string",
 					"description": "path of the dartfmt tool",
 					"default": "dartfmt"
+				},
+				"dart.formatOnSave": {
+					"type": "boolean",
+					"description": "run dartfmt on save",
+					"default": true	
+				},
+				"dart.dartAnalyzerPath": {
+					"type": "string",
+					"description": "path of the dartanalyzer tool",
+					"default": "dartanalyzer"
+				},
+				"dart.lintOnSave": {
+					"type": "boolean",
+					"description": "run linter on save",
+					"default": true
 				}
 			}
 		}

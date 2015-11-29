@@ -10,30 +10,31 @@ This extension aims to provide support and IDE-like features for Dart language t
 * Simple Snippet for Dart file
 * Simple `pub` command integration
 * `dartfmt` integration
-
-### In progress
-
+* Show some command result in a dedicated ouput window
 * `pub` command integration
 	- `pub get` 	done
 	- `pub build` done
 	- `pub run` done
-* Show some command result in a dedicated ouput window
+
+### In progress
+
+* Connect to the `dartanalyzer` to provide better experience
 
 ### In the future
 
 * `dartdoc` integration
-* Connect to the Dart Analyzer Service to provide better experience
 * `grinder` integration
+* Auto completion
 
 ## Using
-
-**For version 0.0.1** :
-The first version don't use the Dart tool for know, but it will soon
 
 This extension use the following command:
 - `pub`
 - `dart`
 - `dartfmt`
+- `dartanalyzer`
+
+Be sure that theses command are in your path, or change the path of theses command in the configuration
 
 
 ## Special Thanks
@@ -44,7 +45,7 @@ For this extension, I use as example and resources :
 
 ## Contact me !
 
-Don't hesitate to email me or on G+
+Don't hesitate to email me or contact me on G+
 
 - G+ : [+Kevin PLATEL](https://plus.google.com/+KévinPlatel)
 - Mail : [Kevin PLATEL](platel.kevin@gmail.com) 

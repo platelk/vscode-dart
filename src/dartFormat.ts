@@ -72,8 +72,14 @@ export class DartFormat implements vscode.DocumentFormattingEditProvider {
 	}
 
 	setDartFmt(context: vscode.ExtensionContext) {
+		var self = this;
 		context.subscriptions.push(vscode.commands.registerCommand("dart.fmt", () => this.runFmt()));
 
 		context.subscriptions.push(vscode.languages.registerDocumentFormattingEditProvider(DART_MODE, this));
+		if (vscode.workspace.getConfiguration("dart")["formatOnSave"]) {
+			vscode.workspace.onDidSaveTextDocument((e) => {
+				self.runFmtOnFile(e.fileName);
+			});
+		}
 	}
 }

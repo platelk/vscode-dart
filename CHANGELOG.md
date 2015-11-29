@@ -1,3 +1,8 @@
+#0.0.5
+- Adding `dartanalyzer` integration
+- Adding configuration to launch linter on save
+- Adding configuration to launch format on save
+
 #0.0.4
 - Changing logo
 - Changing theme
