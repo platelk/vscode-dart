@@ -50,4 +50,4 @@ Don't hesitate to email me or contact me on G+
 - G+ : [+Kevin PLATEL](https://plus.google.com/+KévinPlatel)
 - Mail : [Kevin PLATEL](platel.kevin@gmail.com) 
 
-** Enjoy!**
+**Enjoy!**
