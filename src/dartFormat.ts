@@ -21,13 +21,16 @@ export class DartFormat implements vscode.DocumentFormattingEditProvider {
 	private doFormatDocument(document: vscode.TextDocument, options: vscode.FormattingOptions, token: vscode.CancellationToken): Thenable<vscode.TextEdit[]> {
 		return new Promise((resolve, reject) => {
 			var filename = document.fileName;
-
+      console.log("==>> " + filename);
+      if (!filename.match(/.*\.dart/))
+        return;
 			cp.exec(this.dartFmtCmd + " " + filename, {}, (err, stdout, stderr) => {
 				try {
 					if (err && (<any>err).code == "ENOENT") {
 						vscode.window.showInformationMessage("The '" + this.dartFmtCmd + "' command is not available.  Please check your dartfmt user setting and ensure it is installed.");
 						return resolve(null);
 					}
+          console.log("ERROR : " + err);
 					if (err) {
 						return reject("Cannot format due to syntax errors.");
 					}
@@ -47,13 +50,22 @@ export class DartFormat implements vscode.DocumentFormattingEditProvider {
 	}
 
 	runFmtOnFile(filePath : string) {
+    console.log("FilePAHT ===== "+filePath);
+    // Check if the file is a dart file
+    if (!filePath.match(/.*\.dart/))
+      return;
 		cp.exec(
 			this.dartFmtCmd + " " + filePath,
 			{"cwd": vscode.workspace.rootPath},
 			(err, stdout, stderr) => {
+        var errStr = stderr.toString();
 				console.log(err);
+        if (err || errStr) {
+          console.log("Error during formatting");
+          return;
+        }
 				console.log(stdout.toString());
-				console.log(stderr.toString());
+				console.log();
 				vscode.window.activeTextEditor.edit((editBuild) => {
 					let document = vscode.window.activeTextEditor.document;
 					var text = stdout.toString();

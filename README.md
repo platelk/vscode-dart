@@ -36,6 +36,11 @@ This extension use the following command:
 
 Be sure that theses command are in your path, or change the path of theses command in the configuration
 
+## Usefull links
+
+Here is some usefull links:
+
+- *Github* : [repo](https://github.com/platelk/vscode-dart)
 
 ## Special Thanks
 
