@@ -1,12 +1,14 @@
 "use strict";
 
-import vscode = require("vscode");
+// The module 'vscode' contains the VS Code extensibility API
+// Import the module and reference it with the alias vscode in your code below
+import * as vscode from 'vscode';
 import cp = require("child_process");
 
 import { DART_MODE } from "./dartMode";
 
 export class DartFormat implements vscode.DocumentFormattingEditProvider {
-	private dartFmtCmd : string;
+	private dartFmtCmd: string;
 
 	constructor() {
 		this.dartFmtCmd = vscode.workspace.getConfiguration("dart")["dartFmtPath"];
@@ -32,6 +34,7 @@ export class DartFormat implements vscode.DocumentFormattingEditProvider {
 					}
           console.log("ERROR : " + err);
 					if (err) {
+						console.log("Cannot format");
 						return reject("Cannot format due to syntax errors.");
 					}
 					var text = stdout.toString();
@@ -49,23 +52,26 @@ export class DartFormat implements vscode.DocumentFormattingEditProvider {
 		});
 	}
 
-	runFmtOnFile(filePath : string) {
-    console.log("FilePAHT ===== "+filePath);
+	runFmtOnFile(filePath: string, onComplete) {
+    console.log("FilePATH ==::: " + filePath);
     // Check if the file is a dart file
-    if (!filePath.match(/.*\.dart/))
+    if (!filePath.match(/.*\.dart/)) {
+			console.log("File isn't a dart file");
       return;
+		}
 		cp.exec(
 			this.dartFmtCmd + " " + filePath,
-			{"cwd": vscode.workspace.rootPath},
+			{},
 			(err, stdout, stderr) => {
         var errStr = stderr.toString();
+				console.log(`stdout: ${stdout}`);
+				console.log(`stderr: ${stderr}`);
 				console.log(err);
         if (err || errStr) {
           console.log("Error during formatting");
           return;
         }
-				console.log(stdout.toString());
-				console.log();
+				console.log("Export : " + stdout.toString());
 				vscode.window.activeTextEditor.edit((editBuild) => {
 					let document = vscode.window.activeTextEditor.document;
 					var text = stdout.toString();
@@ -75,12 +81,15 @@ export class DartFormat implements vscode.DocumentFormattingEditProvider {
 					editBuild.replace(range, stdout.toString());
 				});
 				console.log("Format on " + filePath);
+				if (onComplete != null) {
+					onComplete()
+				}
 			}
 		);
 	}
 
 	runFmt() {
-		this.runFmtOnFile(vscode.workspace.asRelativePath(vscode.window.activeTextEditor.document.fileName).substr(1));
+		this.runFmtOnFile(vscode.workspace.asRelativePath(vscode.window.activeTextEditor.document.fileName).substr(1), null);
 	}
 
 	setDartFmt(context: vscode.ExtensionContext) {
@@ -90,7 +99,10 @@ export class DartFormat implements vscode.DocumentFormattingEditProvider {
 		context.subscriptions.push(vscode.languages.registerDocumentFormattingEditProvider(DART_MODE, this));
 		if (vscode.workspace.getConfiguration("dart")["formatOnSave"]) {
 			vscode.workspace.onDidSaveTextDocument((e) => {
-				self.runFmtOnFile(e.fileName);
+				self.runFmtOnFile(e.fileName, () => {
+					console.log("On saved call");
+					//vscode.window.activeTextEditor.document.save()
+				})
 			});
 		}
 	}

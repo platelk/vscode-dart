@@ -1,6 +1,6 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
-import * as vscode from "vscode";
+import * as vscode from 'vscode';
 import { DART_MODE } from "./dartMode";
 import { Pub } from "./pubCmd";
 import { DartFormat } from "./dartFormat";

@@ -1,6 +1,7 @@
 "use strict";
-
-import vscode = require("vscode");
+// The module 'vscode' contains the VS Code extensibility API
+// Import the module and reference it with the alias vscode in your code below
+import * as vscode from 'vscode';
 import cp = require("child_process");
 
 export class Pub {
@@ -40,7 +41,7 @@ export class Pub {
 		cp.exec(
 			this.pubCmd + " get",
 			{"cwd": vscode.workspace.rootPath},
-			(err, stdout: Buffer, stderr: Buffer) => {
+			(err, stdout: string, stderr: string) => {
 			console.log(err);
 			if (err != null) {
 				let error = stderr.toString();
@@ -60,7 +61,7 @@ export class Pub {
 		cp.exec(
 			this.pubCmd + " build" + " --mode " + mode,
 			{"cwd": vscode.workspace.rootPath},
-			(err, stdout: Buffer, stderr: Buffer) => {
+			(err: Error, stdout: string, stderr: string) => {
 			console.log(stdout.toString());
 			console.log(err);
 			let outputWindow = vscode.window.createOutputChannel("pub build");

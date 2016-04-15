@@ -29,6 +29,7 @@ This extension aims to provide support and IDE-like features for Dart language t
 ## Using
 
 This extension use the following command:
+
 - `pub`
 - `dart`
 - `dartfmt`
@@ -45,6 +46,7 @@ Here is some usefull links:
 ## Special Thanks
 
 For this extension, I use as example and resources : 
+
 - the Go language extension done by Microsoft [here](https://github.com/Microsoft/vscode-go)
 - the Dart Atom extension available [here](https://github.com/dart-atom/dartlang/)
 
