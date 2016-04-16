@@ -9,6 +9,7 @@ import { DART_MODE } from "./dartMode";
 
 export class DartFormat implements vscode.DocumentFormattingEditProvider {
 	private dartFmtCmd: string;
+	private haveRunFormatOnSave: boolean = false;
 
 	constructor() {
 		this.dartFmtCmd = vscode.workspace.getConfiguration("dart")["dartFmtPath"];
@@ -71,19 +72,20 @@ export class DartFormat implements vscode.DocumentFormattingEditProvider {
           console.log("Error during formatting");
           return;
         }
-				console.log("Export : " + stdout.toString());
+				let document = vscode.window.activeTextEditor.document;
+				let text = stdout.toString();
+				let previousText = document.getText();
+				console.log("Export : " + stdout.toString() + "\n============\n" + previousText);
 				vscode.window.activeTextEditor.edit((editBuild) => {
-					let document = vscode.window.activeTextEditor.document;
-					var text = stdout.toString();
 					var lastLine = document.lineCount;
 					var lastLineLastCol = document.lineAt(lastLine - 1).range.end.character;
 					var range = new vscode.Range(0, 0, lastLine - 1, lastLineLastCol);
 					editBuild.replace(range, stdout.toString());
 				});
-				console.log("Format on " + filePath);
 				if (onComplete != null) {
 					onComplete()
 				}
+				console.log("Format on " + filePath);
 			}
 		);
 	}
@@ -99,10 +101,15 @@ export class DartFormat implements vscode.DocumentFormattingEditProvider {
 		context.subscriptions.push(vscode.languages.registerDocumentFormattingEditProvider(DART_MODE, this));
 		if (vscode.workspace.getConfiguration("dart")["formatOnSave"]) {
 			vscode.workspace.onDidSaveTextDocument((e) => {
-				self.runFmtOnFile(e.fileName, () => {
-					console.log("On saved call");
-					//vscode.window.activeTextEditor.document.save()
-				})
+				if (!self.haveRunFormatOnSave) {
+					self.runFmtOnFile(e.fileName, () => {
+						console.log("On saved call");
+						self.haveRunFormatOnSave = true;
+						vscode.window.activeTextEditor.document.save()
+					});
+				} else {
+					self.haveRunFormatOnSave = false;
+				}
 			});
 		}
 	}
