@@ -1,6 +1,6 @@
 // A launch configuration that compiles the extension and then opens it inside a new window
 {
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"configurations": [
 		{
 			"name": "Launch Extension",
@@ -10,8 +10,7 @@
 			"args": ["--extensionDevelopmentPath=${workspaceRoot}" ],
 			"stopOnEntry": false,
 			"sourceMaps": true,
-			"outDir": "${workspaceRoot}/src",
-			"preLaunchTask": "npm"
+			"outDir": "${workspaceRoot}/src"
 		},
 		{
 			"name": "Launch Tests",
@@ -21,8 +20,7 @@
 			"args": ["--extensionDevelopmentPath=${workspaceRoot}", "--extensionTestsPath=${workspaceRoot}/out/test" ],
 			"stopOnEntry": false,
 			"sourceMaps": true,
-			"outDir": "${workspaceRoot}/test",
-			"preLaunchTask": "npm"
+			"outDir": "${workspaceRoot}/test"
 		}
 	]
 }
