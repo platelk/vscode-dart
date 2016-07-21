@@ -123,7 +123,7 @@
 				"dart.dartiumPath": {
 					"type": "string",
 					"description": "path the dartium browser, if the value is empty, it will look at $DART_SDK",
-					"default": ""
+					"default": "dartium"
 				},
 				"dart.dartFmtPath": {
 					"type": "string",
@@ -145,10 +145,15 @@
 					"description": "run linter on save",
 					"default": true
 				},
-				"dartLanaugeServer.timeOut": {
+				"dartLanguageServer.timeOut": {
 					"type": "number",
 					"default": 5000,
 					"description": "Maximum time alowed on each analysis_server request"
+				},
+				"dartLanguageServer.sdk": {
+					"type": "string",
+					"default": "C:\\tools\\dart-sdk",
+					"description": "Path to the dart SDK"
 				}
 			}
 		}

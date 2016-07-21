@@ -1,9 +1,7 @@
-/* --------------------------------------------------------------------------------------------
- * Copyright (c) Microsoft Corporation. All rights reserved.
- * Licensed under the MIT License. See License.txt in the project root for license information.
- * ------------------------------------------------------------------------------------------ */
 'use strict';
+var spawn = require('child_process').spawn;
 var vscode_languageserver_1 = require('vscode-languageserver');
+var analyzer_server_1 = require('./analyzer_server');
 // Create a connection for the server. The connection uses Node's IPC as a transport
 var connection = vscode_languageserver_1.createConnection(new vscode_languageserver_1.IPCMessageReader(process), new vscode_languageserver_1.IPCMessageWriter(process));
 // Create a simple text document manager. The text document manager
@@ -35,15 +33,22 @@ documents.onDidChangeContent(function (change) {
 });
 // hold the maxNumberOfProblems setting
 var maxNumberOfProblems;
+// hold the maxNumberOfProblems setting
+var sdkPath;
+var analyzer;
 // The settings have changed. Is send on server activation
 // as well.
 connection.onDidChangeConfiguration(function (change) {
     var settings = change.settings;
-    maxNumberOfProblems = settings.languageServerExample.maxNumberOfProblems || 100;
+    sdkPath = settings.dartLanguageServer.sdk;
+    connection.console.log('SDK Path : ' + sdkPath);
+    analyzer = new analyzer_server_1.AnalayzerServer(sdkPath, workspaceRoot, connection);
+    analyzer.launch();
     // Revalidate any open text documents
     documents.all().forEach(validateTextDocument);
 });
 function validateTextDocument(textDocument) {
+    connection.console.log("ValidateTextDoc");
     var diagnostics = [];
     var lines = textDocument.getText().split(/\r?\n/g);
     var problems = 0;
@@ -122,6 +127,9 @@ connection.onDidCloseTextDocument((params) => {
     connection.console.log(`${params.uri} closed.`);
 });
 */
+connection.onExit(function () {
+    // TODO : Kill analyzer
+});
 // Listen on the connection
 connection.listen();
 //# sourceMappingURL=server.js.map

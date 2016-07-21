@@ -1,16 +1,15 @@
-/* --------------------------------------------------------------------------------------------
- * Copyright (c) Microsoft Corporation. All rights reserved.
- * Licensed under the MIT License. See License.txt in the project root for license information.
- * ------------------------------------------------------------------------------------------ */
 'use strict';
 
+const spawn = require('child_process').spawn;
 import {
 	IPCMessageReader, IPCMessageWriter,
 	createConnection, IConnection, TextDocumentSyncKind,
 	TextDocuments, TextDocument, Diagnostic, DiagnosticSeverity,
-	InitializeParams, InitializeResult, TextDocumentPositionParams,
+	InitializeParams, InitializeResult, TextDocumentPositionParams, NotificationHandler,
 	CompletionItem, CompletionItemKind
 } from 'vscode-languageserver';
+
+import { AnalayzerServer } from './analyzer_server';
 
 // Create a connection for the server. The connection uses Node's IPC as a transport
 let connection: IConnection = createConnection(new IPCMessageReader(process), new IPCMessageWriter(process));
@@ -36,7 +35,7 @@ connection.onInitialize((params): InitializeResult => {
 				resolveProvider: true
 			}
 		}
-	}
+	};
 });
 
 // The content of a text document has changed. This event is emitted
@@ -47,31 +46,41 @@ documents.onDidChangeContent((change) => {
 
 // The settings interface describe the server relevant settings part
 interface Settings {
-	languageServerExample: ExampleSettings;
+	dartLanguageServer: DartLanguageServerSetting;
 }
 
 // These are the example settings we defined in the client's package.json
 // file
-interface ExampleSettings {
+interface DartLanguageServerSetting {
 	maxNumberOfProblems: number;
+	sdk: string;
 }
 
 // hold the maxNumberOfProblems setting
 let maxNumberOfProblems: number;
+// hold the maxNumberOfProblems setting
+let sdkPath: string;
+
+let analyzer: AnalayzerServer;
+
 // The settings have changed. Is send on server activation
 // as well.
 connection.onDidChangeConfiguration((change) => {
 	let settings = <Settings>change.settings;
-	maxNumberOfProblems = settings.languageServerExample.maxNumberOfProblems || 100;
+	sdkPath = settings.dartLanguageServer.sdk;
+	connection.console.log('SDK Path : ' + sdkPath);
+	analyzer = new AnalayzerServer(sdkPath, workspaceRoot, connection);
+	analyzer.launch();
 	// Revalidate any open text documents
 	documents.all().forEach(validateTextDocument);
 });
 
 function validateTextDocument(textDocument: TextDocument): void {
+	connection.console.log("ValidateTextDoc");
 	let diagnostics: Diagnostic[] = [];
 	let lines = textDocument.getText().split(/\r?\n/g);
 	let problems = 0;
-	for (var i = 0; i < lines.length && problems < maxNumberOfProblems; i++) {
+	for (let i = 0; i < lines.length && problems < maxNumberOfProblems; i++) {
 		let line = lines[i];
 		let index = line.indexOf('typescript');
 		if (index >= 0) {
@@ -102,6 +111,7 @@ connection.onCompletion((textDocumentPosition: TextDocumentPositionParams): Comp
 	// The pass parameter contains the position of the text document in 
 	// which code complete got requested. For the example we ignore this
 	// info and always provide the same completion items.
+
 	return [
 		{
 			label: 'TypeScript',
@@ -150,6 +160,10 @@ connection.onDidCloseTextDocument((params) => {
 	connection.console.log(`${params.uri} closed.`);
 });
 */
+
+connection.onExit(() => {
+	// TODO : Kill analyzer
+});
 
 // Listen on the connection
 connection.listen();
