@@ -1,9 +1,14 @@
 # CHANGLOG
+## 0.1.1
+
+- Update devDependencies
+
 
 ## 0.1.0
 
 - Update dependencies version for VSCode v1.0.0
 - Bug fix [#3](https://github.com/platelk/vscode-dart/issues/3)
+
 
 ## 0.0.6
 

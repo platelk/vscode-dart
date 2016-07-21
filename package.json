@@ -7,6 +7,10 @@
 	"author": {
 		"name": "PLATEL Kévin"
 	},
+	"bug": {
+		"email" : "platel.kevin@gmail.com",
+		"url" : "https://github.com/platelk/vscode-dart/issues"
+	},
 	"categories": [
 		"Languages",
 		"Snippets",
@@ -146,6 +150,8 @@
 	},
 	"devDependencies": {
 		"typescript": "^1.8.10",
-		"vscode": "^0.11.10"
+		"vscode": "^0.11.13",
+		"fs-extra": "^0.26.0",
+    	"tslint": "^3.13.0"
 	}
 }
