@@ -13,8 +13,6 @@ export class LinterResult {
 
 	parse(message : string, format="string") {
 		var result = this._re.exec(message);
-
-		console.log(result);
 		if (!result) {
 			return;
 		}

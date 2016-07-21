@@ -24,7 +24,6 @@ export class DartFormat implements vscode.DocumentFormattingEditProvider {
 	private doFormatDocument(document: vscode.TextDocument, options: vscode.FormattingOptions, token: vscode.CancellationToken): Thenable<vscode.TextEdit[]> {
 		return new Promise((resolve, reject) => {
 			var filename = document.fileName;
-      console.log("==>> " + filename);
       if (!filename.match(/.*\.dart/))
         return;
 			cp.exec(this.dartFmtCmd + " " + filename, {}, (err, stdout, stderr) => {
@@ -33,7 +32,6 @@ export class DartFormat implements vscode.DocumentFormattingEditProvider {
 						vscode.window.showInformationMessage("The '" + this.dartFmtCmd + "' command is not available.  Please check your dartfmt user setting and ensure it is installed.");
 						return resolve(null);
 					}
-          console.log("ERROR : " + err);
 					if (err) {
 						console.log("Cannot format");
 						return reject("Cannot format due to syntax errors.");
@@ -44,7 +42,6 @@ export class DartFormat implements vscode.DocumentFormattingEditProvider {
 					var lastLine = document.lineCount;
 					var lastLineLastCol = document.lineAt(lastLine - 1).range.end.character;
 					var range = new vscode.Range(0, 0, lastLine - 1, lastLineLastCol);
-					console.log("File formatted");
 					return resolve([new vscode.TextEdit(range, text)]);
 				} catch (e) {
 					reject(e);
@@ -54,7 +51,6 @@ export class DartFormat implements vscode.DocumentFormattingEditProvider {
 	}
 
 	runFmtOnFile(filePath: string, onComplete) {
-    console.log("FilePATH ==::: " + filePath);
     // Check if the file is a dart file
     if (!filePath.match(/.*\.dart/)) {
 			console.log("File isn't a dart file");
@@ -65,9 +61,6 @@ export class DartFormat implements vscode.DocumentFormattingEditProvider {
 			{},
 			(err, stdout, stderr) => {
         var errStr = stderr.toString();
-				console.log(`stdout: ${stdout}`);
-				console.log(`stderr: ${stderr}`);
-				console.log(err);
         if (err || errStr) {
           console.log("Error during formatting");
           return;
@@ -75,7 +68,6 @@ export class DartFormat implements vscode.DocumentFormattingEditProvider {
 				let document = vscode.window.activeTextEditor.document;
 				let text = stdout.toString();
 				let previousText = document.getText();
-				console.log("Export : " + stdout.toString() + "\n============\n" + previousText);
 				vscode.window.activeTextEditor.edit((editBuild) => {
 					var lastLine = document.lineCount;
 					var lastLineLastCol = document.lineAt(lastLine - 1).range.end.character;
@@ -85,7 +77,6 @@ export class DartFormat implements vscode.DocumentFormattingEditProvider {
 				if (onComplete != null) {
 					onComplete()
 				}
-				console.log("Format on " + filePath);
 			}
 		);
 	}
@@ -103,7 +94,6 @@ export class DartFormat implements vscode.DocumentFormattingEditProvider {
 			vscode.workspace.onDidSaveTextDocument((e) => {
 				if (!self.haveRunFormatOnSave) {
 					self.runFmtOnFile(e.fileName, () => {
-						console.log("On saved call");
 						self.haveRunFormatOnSave = true;
 						vscode.window.activeTextEditor.document.save()
 					});

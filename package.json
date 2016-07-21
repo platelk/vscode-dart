@@ -2,7 +2,7 @@
 	"name": "dart",
 	"displayName": "Dart",
 	"description": "Dart support for VSCode",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"publisher": "kevinplatel",
 	"author": {
 		"name": "PLATEL Kévin"
@@ -105,6 +105,11 @@
 			"type": "object",
 			"title": "Dart configuration",
 			"properties": {
+				"dart.sdk": {
+					"type": "string",
+					"description": "path to the dart sdk",
+					"default": "C:\\tools\\dart-sdk"
+				},
 				"dart.pubPath": {
 					"type": "string",
 					"description": "path to the pub command",
@@ -139,6 +144,11 @@
 					"type": "boolean",
 					"description": "run linter on save",
 					"default": true
+				},
+				"dartLanaugeServer.timeOut": {
+					"type": "number",
+					"default": 5000,
+					"description": "Maximum time alowed on each analysis_server request"
 				}
 			}
 		}
@@ -146,12 +156,18 @@
 	"scripts": {
 		"vscode:prepublish": "node ./node_modules/vscode/bin/compile",
 		"compile": "node ./node_modules/vscode/bin/compile -watch -p ./",
-		"postinstall": "node ./node_modules/vscode/bin/install"
+		"postinstall": "node ./node_modules/vscode/bin/install",
+		"test": "node ./node_modules/vscode/bin/test",
+    	"lint": "node ./node_modules/tslint/bin/tslint ./src/*.ts ./src/debugAdapter/*.ts ./test/*.ts"
+	},
+	"dependencies": {
+		"vscode-languageclient": "^2.3.0",
+		"vscode-languageserver": "^2.2.1"
 	},
 	"devDependencies": {
 		"typescript": "^1.8.10",
-		"vscode": "^0.11.13",
-		"fs-extra": "^0.26.0",
+		"vscode": "^0.11.14",
+		"fs-extra": "^0.30.0",
     	"tslint": "^3.13.0"
 	}
 }

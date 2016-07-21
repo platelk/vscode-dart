@@ -37,10 +37,8 @@ export class DartAnalyzer {
 						let res = new LinterResult(result[i]);
 						let range = new vscode.Range(new vscode.Position(res.line-1, res.column), new vscode.Position(res.line-1, Number.MAX_VALUE));
 						let diagnostic = new vscode.Diagnostic(range, res.message, self._severity[res.type]);
-						console.log(diagnostic);
 						diagnostics.push(diagnostic);
 					}
-					console.log(diagnostics);
 					resolve(diagnostics);
 			});
 		});

@@ -1,10 +1,16 @@
+'use strict';
+
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
+import * as path from 'path';
+
 import { DART_MODE } from "./dartMode";
 import { Pub } from "./pubCmd";
 import { DartFormat } from "./dartFormat";
 import { DartAnalyzer } from "./dartAnalyzer";
+
+import { LanguageClient, LanguageClientOptions, SettingMonitor, ServerOptions, TransportKind } from 'vscode-languageclient';
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -14,8 +20,41 @@ export function activate(context: vscode.ExtensionContext) : void {
 	// This line of code will only be executed once when your extension is activated
 	console.log("Congratulations, your extension 'dart' is now active!"); 
 
+	initLanguageServer(context);
 	init(context);
 	setLanguageConfiguration();
+}
+
+function initLanguageServer(context: vscode.ExtensionContext) : void {
+    // The server is implemented in node
+    let serverModule = context.asAbsolutePath(path.join('server', 'server.js'));
+	let debugOptions = {} // TODO : See options for analyzer_server
+
+	// If the extension is launched in debug mode then the debug server options are used
+    // Otherwise the run options are used
+    let serverOptions: ServerOptions = {
+        run : { module: serverModule, transport: TransportKind.ipc },
+        debug: { module: serverModule, transport: TransportKind.ipc, options: debugOptions }
+    }
+
+    // Options to control the language client
+    let clientOptions: LanguageClientOptions = {
+        // Register the server for plain text documents
+        documentSelector: ["dart"],
+        synchronize: {
+            // Synchronize the setting section 'languageServerExample' to the server
+            configurationSection: 'dartLanguageServer',
+            // Notify the server about file changes to '.clientrc files contain in the workspace
+            fileEvents: vscode.workspace.createFileSystemWatcher('**/.clientrc')
+        }
+    }
+
+	// Create the language client and start the client.
+    let disposable = new LanguageClient('Dart Language Server', serverOptions, clientOptions).start();
+    
+    // Push the disposable to the context's subscriptions so that the 
+    // client can be deactivated on extension deactivation
+    context.subscriptions.push(disposable);
 }
 
 function init(context: vscode.ExtensionContext) : void {
