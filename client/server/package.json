@@ -1,0 +1,22 @@
+{
+	"name": "language-server-example",
+	"description": "Example implementation of a language server in node.",
+	"version": "0.0.1",
+	"author": "Microsoft Corporation",
+	"license": "MIT",
+	"engines": {
+		"node": "*"
+	},
+	"dependencies": {
+		"vscode-languageserver": "^2.2.1"
+	},
+	"devDependencies": {
+		"fs-extra": "^0.30.0",
+		"typescript": "^1.8.10",
+		"tslint": "^3.13.0"
+	},
+	"scripts": {
+		"compile": "installServerIntoExtension ../client ./package.json ./tsconfig.json && tsc -p .",
+		"watch": "installServerIntoExtension ../client ./package.json ./tsconfig.json && tsc --watch -p ."
+	}
+}
