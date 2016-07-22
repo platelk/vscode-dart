@@ -1,5 +1,7 @@
 'use strict';
 var spawn = require('child_process').spawn;
+var which = require('which');
+var fs = require('fs');
 var AnalayzerServer = (function () {
     function AnalayzerServer(sdkPath, workspacePath, conn) {
         this._sdkPath = sdkPath;
@@ -29,8 +31,20 @@ var AnalayzerServer = (function () {
         args.push('--client-version=0.2.0');
         return args;
     };
+    AnalayzerServer.prototype._getSdkPath = function () {
+        if (this._sdkPath === undefined || this._sdkPath.length === 0) {
+            this.connection.console.log('search sdk ...');
+            var resolved = which.sync('dart');
+            this.connection.console.log(resolved);
+            return fs.realpathSync(fs.realpathSync(resolved) + '/../../');
+        }
+        else {
+            this.connection.console.log('use provided sdk');
+            return this._sdkPath;
+        }
+    };
     AnalayzerServer.prototype.getSnapshotPath = function () {
-        return this._sdkPath + '\\bin/snapshots/analysis_server.dart.snapshot';
+        return this._getSdkPath() + '/bin/snapshots/analysis_server.dart.snapshot';
     };
     return AnalayzerServer;
 }());

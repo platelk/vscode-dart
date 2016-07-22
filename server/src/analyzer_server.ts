@@ -1,6 +1,9 @@
 'use strict';
 
 const spawn = require('child_process').spawn;
+const which = require('which');
+
+import fs = require('fs');
 
 export class AnalayzerServer {
 	private _sdkPath: string;
@@ -42,7 +45,19 @@ export class AnalayzerServer {
 		return args;
 	}
 
+	private _getSdkPath() {
+		if (this._sdkPath === undefined || this._sdkPath.length === 0) {
+			this.connection.console.log('search sdk ...');
+			let resolved = which.sync('dart');
+			this.connection.console.log(resolved);
+			return fs.realpathSync(fs.realpathSync(resolved) + '/../../');
+		} else {
+			this.connection.console.log('use provided sdk');
+			return this._sdkPath;
+		}
+	}
+
 	private getSnapshotPath(): string {
-		return this._sdkPath + '\\bin/snapshots/analysis_server.dart.snapshot';
+		return this._getSdkPath() + '/bin/snapshots/analysis_server.dart.snapshot';
 	}
 }

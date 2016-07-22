@@ -8,7 +8,8 @@
 		"node": "*"
 	},
 	"dependencies": {
-		"vscode-languageserver": "^2.2.1"
+		"vscode-languageserver": "^2.2.1",
+		"which": "^1.2.10"
 	},
 	"devDependencies": {
 		"fs-extra": "^0.30.0",

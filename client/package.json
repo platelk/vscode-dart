@@ -152,7 +152,6 @@
 				},
 				"dartLanguageServer.sdk": {
 					"type": "string",
-					"default": "C:\\tools\\dart-sdk",
 					"description": "Path to the dart SDK"
 				}
 			}

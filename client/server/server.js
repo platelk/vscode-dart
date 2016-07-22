@@ -1,5 +1,6 @@
 'use strict';
 var spawn = require('child_process').spawn;
+var which = require('which');
 var vscode_languageserver_1 = require('vscode-languageserver');
 var analyzer_server_1 = require('./analyzer_server');
 // Create a connection for the server. The connection uses Node's IPC as a transport
@@ -13,12 +14,17 @@ documents.listen(connection);
 // After the server has started the client sends an initilize request. The server receives
 // in the passed params the rootPath of the workspace plus the client capabilites. 
 var workspaceRoot;
+// hold the maxNumberOfProblems setting
+var maxNumberOfProblems;
+// hold the maxNumberOfProblems setting
+var sdkPath;
+var analyzer;
 connection.onInitialize(function (params) {
     workspaceRoot = params.rootPath;
     return {
         capabilities: {
             // Tell the client that the server works in FULL text document sync mode
-            textDocumentSync: documents.syncKind,
+            textDocumentSync: vscode_languageserver_1.TextDocumentSyncKind.Incremental,
             // Tell the client that the server support code complete
             completionProvider: {
                 resolveProvider: true
@@ -31,17 +37,12 @@ connection.onInitialize(function (params) {
 documents.onDidChangeContent(function (change) {
     validateTextDocument(change.document);
 });
-// hold the maxNumberOfProblems setting
-var maxNumberOfProblems;
-// hold the maxNumberOfProblems setting
-var sdkPath;
-var analyzer;
 // The settings have changed. Is send on server activation
 // as well.
 connection.onDidChangeConfiguration(function (change) {
     var settings = change.settings;
     sdkPath = settings.dartLanguageServer.sdk;
-    connection.console.log('SDK Path : ' + sdkPath);
+    connection.console.log('SDK Path : [' + sdkPath + ']');
     analyzer = new analyzer_server_1.AnalayzerServer(sdkPath, workspaceRoot, connection);
     analyzer.launch();
     // Revalidate any open text documents

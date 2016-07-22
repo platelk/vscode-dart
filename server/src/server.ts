@@ -1,6 +1,8 @@
 'use strict';
 
 const spawn = require('child_process').spawn;
+const which = require('which');
+
 import {
 	IPCMessageReader, IPCMessageWriter,
 	createConnection, IConnection, TextDocumentSyncKind,
@@ -24,12 +26,20 @@ documents.listen(connection);
 // After the server has started the client sends an initilize request. The server receives
 // in the passed params the rootPath of the workspace plus the client capabilites. 
 let workspaceRoot: string;
+
+// hold the maxNumberOfProblems setting
+let maxNumberOfProblems: number;
+// hold the maxNumberOfProblems setting
+let sdkPath: string;
+
+let analyzer: AnalayzerServer;
+
 connection.onInitialize((params): InitializeResult => {
 	workspaceRoot = params.rootPath;
 	return {
 		capabilities: {
 			// Tell the client that the server works in FULL text document sync mode
-			textDocumentSync: documents.syncKind,
+			textDocumentSync: TextDocumentSyncKind.Incremental,
 			// Tell the client that the server support code complete
 			completionProvider: {
 				resolveProvider: true
@@ -56,19 +66,12 @@ interface DartLanguageServerSetting {
 	sdk: string;
 }
 
-// hold the maxNumberOfProblems setting
-let maxNumberOfProblems: number;
-// hold the maxNumberOfProblems setting
-let sdkPath: string;
-
-let analyzer: AnalayzerServer;
-
 // The settings have changed. Is send on server activation
 // as well.
 connection.onDidChangeConfiguration((change) => {
 	let settings = <Settings>change.settings;
 	sdkPath = settings.dartLanguageServer.sdk;
-	connection.console.log('SDK Path : ' + sdkPath);
+	connection.console.log('SDK Path : [' + sdkPath + ']');
 	analyzer = new AnalayzerServer(sdkPath, workspaceRoot, connection);
 	analyzer.launch();
 	// Revalidate any open text documents
