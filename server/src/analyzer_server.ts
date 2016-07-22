@@ -4,12 +4,15 @@ const spawn = require('child_process').spawn;
 const which = require('which');
 
 import fs = require('fs');
+import { Message } from './message';
 
 export class AnalayzerServer {
 	private _sdkPath: string;
 	private _workspacePath: string;
 	private _process;
 	private connection;
+
+	private _messageMap: {[id: string]: any};
 
 	constructor(sdkPath: string, workspacePath : string, conn) {
 		this._sdkPath = sdkPath;
@@ -20,16 +23,29 @@ export class AnalayzerServer {
 	launch(): void {
 		this._process = spawn('dart', this.buildArgs());
 		this._process.stdout.on('data', (data) => {
-			this.connection.console.log(`stdout: ${data}`);
+			this.connection.console.log(`analyzer : ${data}`);
+			let message = new Message(JSON.parse(`${data}`));
+			if (message.id && this._messageMap[message.id]) {
+				this._messageMap[message.id](message);
+			}
 		});
 
 		this._process.stderr.on('data', (data) => {
-			this.connection.console.log(`stderr: ${data}`);
+
 		});
 
 		this._process.on('close', (code) => {
 			this.connection.console.log(`child process exited with code ${code}`);
 		});
+	}
+
+	send(message: Message, cb: (m: Message) => void) {
+		this._messageMap[message.id] = cb;
+		this._process.stdin.write(message.toJson());
+	}
+
+	on(event, cb) {
+
 	}
 
 	private buildArgs(): Array<string> {

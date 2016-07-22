@@ -2,6 +2,7 @@
 var spawn = require('child_process').spawn;
 var which = require('which');
 var fs = require('fs');
+var message_1 = require('./message');
 var AnalayzerServer = (function () {
     function AnalayzerServer(sdkPath, workspacePath, conn) {
         this._sdkPath = sdkPath;
@@ -12,14 +13,23 @@ var AnalayzerServer = (function () {
         var _this = this;
         this._process = spawn('dart', this.buildArgs());
         this._process.stdout.on('data', function (data) {
-            _this.connection.console.log("stdout: " + data);
+            _this.connection.console.log("analyzer : " + data);
+            var message = new message_1.Message(JSON.parse("" + data));
+            if (message.id && _this._messageMap[message.id]) {
+                _this._messageMap[message.id](message);
+            }
         });
         this._process.stderr.on('data', function (data) {
-            _this.connection.console.log("stderr: " + data);
         });
         this._process.on('close', function (code) {
             _this.connection.console.log("child process exited with code " + code);
         });
+    };
+    AnalayzerServer.prototype.send = function (message, cb) {
+        this._messageMap[message.id] = cb;
+        this._process.stdin.write(message.toJson());
+    };
+    AnalayzerServer.prototype.on = function (event, cb) {
     };
     AnalayzerServer.prototype.buildArgs = function () {
         var args = new Array();

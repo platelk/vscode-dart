@@ -9,7 +9,8 @@
 	},
 	"dependencies": {
 		"vscode-languageserver": "^2.2.1",
-		"which": "^1.2.10"
+		"which": "^1.2.10",
+		"uuid": "2.0.2"
 	},
 	"devDependencies": {
 		"fs-extra": "^0.30.0",

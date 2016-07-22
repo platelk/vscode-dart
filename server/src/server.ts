@@ -12,6 +12,7 @@ import {
 } from 'vscode-languageserver';
 
 import { AnalayzerServer } from './analyzer_server';
+import { Message } from './message';
 
 // Create a connection for the server. The connection uses Node's IPC as a transport
 let connection: IConnection = createConnection(new IPCMessageReader(process), new IPCMessageWriter(process));
@@ -74,6 +75,9 @@ connection.onDidChangeConfiguration((change) => {
 	connection.console.log('SDK Path : [' + sdkPath + ']');
 	analyzer = new AnalayzerServer(sdkPath, workspaceRoot, connection);
 	analyzer.launch();
+	analyzer.send(new Message({'method': 'server.getVersion'}), (m: Message) => {
+		connection.console.log(`receive message from analyze : ${m.toJson()}`);
+	});
 	// Revalidate any open text documents
 	documents.all().forEach(validateTextDocument);
 });

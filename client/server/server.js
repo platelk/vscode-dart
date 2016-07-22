@@ -3,6 +3,7 @@ var spawn = require('child_process').spawn;
 var which = require('which');
 var vscode_languageserver_1 = require('vscode-languageserver');
 var analyzer_server_1 = require('./analyzer_server');
+var message_1 = require('./message');
 // Create a connection for the server. The connection uses Node's IPC as a transport
 var connection = vscode_languageserver_1.createConnection(new vscode_languageserver_1.IPCMessageReader(process), new vscode_languageserver_1.IPCMessageWriter(process));
 // Create a simple text document manager. The text document manager
@@ -45,6 +46,9 @@ connection.onDidChangeConfiguration(function (change) {
     connection.console.log('SDK Path : [' + sdkPath + ']');
     analyzer = new analyzer_server_1.AnalayzerServer(sdkPath, workspaceRoot, connection);
     analyzer.launch();
+    analyzer.send(new message_1.Message({ 'method': 'server.getVersion' }), function (m) {
+        connection.console.log("receive message from analyze : " + m.toJson());
+    });
     // Revalidate any open text documents
     documents.all().forEach(validateTextDocument);
 });
