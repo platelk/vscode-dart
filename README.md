@@ -1,5 +1,11 @@
 # Dart support for VSCode
 
+## DEPRECATED!
+
+*Warning*: this extension is no longer maintained, please use [DartCode](https://marketplace.visualstudio.com/items?itemName=DanTup.dart-code)
+
+---
+
 This extension aims to provide support and IDE-like features for Dart language to VS Code
 
 ## Features

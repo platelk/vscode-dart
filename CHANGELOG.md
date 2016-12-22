@@ -1,5 +1,9 @@
 # CHANGLOG
 
+## Deprecated
+
+- This extension is no longer maintained, please use [DartCode](https://marketplace.visualstudio.com/items?itemName=DanTup.dart-code)
+
 ## 0.1.0
 
 - Update dependencies version for VSCode v1.0.0
